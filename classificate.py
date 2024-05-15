@@ -8,11 +8,10 @@ from joblib import dump, load
 import numpy as np
 
 # Definir os caminhos
-data_folder = "nuvem_de_pontos/"
 DATANAME = "3DML_urban_point_cloud.xyz"
 
 # Carregar os dados
-pcd = pd.read_csv(data_folder + DATANAME, delimiter=' ')
+pcd = pd.read_csv(DATANAME, delimiter=' ')
 pcd.dropna(inplace=True)
 
 # Preparar os dados
@@ -32,7 +31,7 @@ rf_predictions = rf_classifier.predict(X_test)
 print(classification_report(y_test, rf_predictions, target_names=['ground', 'vegetation', 'buildings']))
 
 # Salvar o modelo treinado
-model_filename = data_folder + "treinado\\aprendizado.pkl"
+model_filename = "aprendizado.pkl"
 dump(rf_classifier, model_filename)
 
 print(f"Modelo salvo em: {model_filename}")
@@ -41,10 +40,10 @@ print(f"Modelo salvo em: {model_filename}")
 # _________________________________________________________________________________________________________________________
 
 # Definir o caminho para o modelo salvo e para os novos dados
-path = "treinado\\aprendizado.pkl"
-model_path = data_folder + path
+path = "aprendizado.pkl"
+model_path = path
 data = "TESTE.xyz"
-new_data_path = data_folder + data
+new_data_path = data
 
 # Carregar o modelo treinado
 rf_classifier = load(model_filename)
@@ -67,6 +66,6 @@ new_predictions = rf_classifier.predict(new_features_scaled)
 # Adicionar as previsões ao DataFrame e salvar os resultados
 new_pcd['Classification'] = new_predictions
 output_path = "classificado.xyz"
-new_pcd.to_csv(data_folder + output_path, index=False, sep=' ')
+new_pcd.to_csv(output_path, index=False, sep=' ')
 
 print(f"Nuvem de pontos classificada salva em: {output_path}")
