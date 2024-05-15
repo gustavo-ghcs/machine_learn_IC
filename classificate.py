@@ -3,9 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import MinMaxScaler
-import matplotlib.pyplot as plt
 from joblib import dump, load
-import numpy as np
 
 # Definir os caminhos
 DATANAME = "3DML_urban_point_cloud.xyz"
